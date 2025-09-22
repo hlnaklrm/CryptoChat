@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+// Base class for characters
+class Character {
+public:
+    string name;
+    int hp;
+    int attackPower;
+
+    Character(string n, int h, int a) : name(n), hp(h), attackPower(a) {}
+    virtual void attack(Character &target) {
+        cout << name << " attacks " << target.name << " for " << attackPower << " damage!\n";
+        target.hp -= attackPower;
+        if (target.hp < 0) target.hp = 0;
+    }
+};
+
+// Hero class inherits from Character
+class Hero : public Character {
+public:
+    Hero(string n) : Character(n, 100, 20) {}
+    void heal() {
+        int healAmount = 15;
+        hp += healAmount;
+        cout << name << " heals for " << healAmount << " HP!\n";
+    }
+};
+
+// Enemy class inherits from Character
+class Enemy : public Character {
+public:
+    Enemy(string n, int h, int a) : Character(n, h, a) {}
+};
+
+// Battle function
+void battle(Hero &hero, Enemy &enemy) {
+    cout << "⚔️ Battle Start: " << hero.name << " vs " << enemy.name << " ⚔️\n";
+    while (hero.hp > 0 && enemy.hp > 0) {
+        hero.attack(enemy);
+        if (enemy.hp <= 0) {
+            cout << enemy.name << " has been defeated!\n";
+            break;
+        }
+        enemy.attack(hero);
+        if (hero.hp <= 0) {
+            cout << hero.name << " has fallen!\n";
+            break;
+        }
+        cout << hero.name << " HP: " << hero.hp << " | " << enemy.name << " HP: " << enemy.hp << "\n";
+    }
+}
+
+int main() {
+    srand(time(0));
+    Hero hero("Valiant Hero");
+    Enemy dragon("Fierce Dragon", 80, 15);
+
+    cout << "Welcome to DragonQuestCPP!\n";
+    battle(hero, dragon);
+
+    if(hero.hp > 0) cout << "🏆 You won the battle!\n";
+    else cout << "💀 Game Over.\n";
+
+    return 0;
+}
