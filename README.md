@@ -19,18 +19,15 @@ Messages are saved to a log file and can be decrypted for reading. Perfect for p
    git clone https://github.com/hlnaklrm/crypto-chat-simulator.git
 Navigate to the project folder:
 
-bash
-Copy code
+
 cd crypto-chat-simulator
 Compile the C++ code:
 
-bash
-Copy code
+
 g++ main.cpp -o crypto-chat
 Run the program:
 
-bash
-Copy code
+
 ./crypto-chat
 💬 Usage
 Type messages alternately as User1 and User2.
